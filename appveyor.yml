@@ -1,6 +1,6 @@
 image: Ubuntu  # Используем Ubuntu для сборки
 
-stack: jdk 22  # Версия JDK
+stack: jdk 11  # Версия JDK
 
 environment:
   JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED"  # Разрешаем доступ к защищённым методам
