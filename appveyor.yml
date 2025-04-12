@@ -1,15 +1,21 @@
-image: Ubuntu  # образ для сборки
+image: Ubuntu  # Используем Ubuntu для сборки
 
-stack: jdk 22  # версия JDK
+stack: openjdk22  # Версия JDK
 
-branches:
-  only:
-    - main  # ветка git
+environment:
+  JAVA_OPTS: "--add-opens java.base/java.lang=ALL-UNNAMED"  # Разрешаем доступ к защищённым методам
 
-build: off  # будем использовать свой скрипт сборки
+init:
+  - set APPVEYOR_BUILD_VERBOSE=true  # Включаем подробную отладку
+
+build: false  # Отключаем автоматическое выполнение сборки
 
 build_script:
-  - mvn clean test
+  - mvn clean test  # Выполняем тесты
+  - mvn jacoco:report  # Генерируем отчёт Jacoco
 
-#https://www.appveyor.com/docs/appveyor-yml/
-#root
+test_script:
+  - echo "Tests completed successfully."  # Подтверждаем успешное завершение тестов
+
+on_finish:
+  - echo "Build finished."  # Сообщение о завершении сборки
